@@ -1,0 +1,34 @@
+h1. Vision
+
+h2. ParSec -- Big Picture
+
+Idea is very simple: we get an HTML export of itemized bill from a cell phone company and load it in. A user maintains his or her phone book inside ParSec where phones can be labeled as Business or Personal (or any other number of categories). ParSec generates a summary report with a break-up by time/cost of call, in/out SMS counts, GPRS traffic.
+
+ParSec can also do basic usage stats: Top-N most in/out called, total usage split between air (inbound/outbound), SMS (likewise), data.
+
+As the next step, based on overall trends over time (3 or 6 months enough?) we can analyze and suggest a better tariff plan.
+
+
+h2. Gory Details
+
+h3. Basic Data Model
+
+Core application data is kept in the following tables:
+
+* @user@ -- basic user data (login, unique ID, default email, name, password, status)
+* @phone_book@ -- user phone book with category assignments
+* @phone_category@ -- by default contains basic 'business' and 'personal' master categories, but can be extended by a user
+* @phone_category_map@ -- mapping of phones to categories
+* @bill_register@ -- keeps record of all invoices by user, period, cell operator
+* @bill_itemized@ -- itemized invocies
+* @bill_summary@ -- summary data per invoice/user/period
+
+Basic relationship can be described as:
+
+* @user@ has @phone@
+* @phone belongs to @category@
+* @user@ has @bill@
+* @bill@ has @items@
+* @item@ has (@phone@, @cost@, @duration@, @call_type@, @date_time_stamp@)
+
+h3. 
